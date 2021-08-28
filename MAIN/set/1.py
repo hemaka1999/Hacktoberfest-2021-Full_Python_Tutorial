@@ -1,0 +1,10 @@
+x={5,6,53,67,2,0,6}
+y={6,5,53,67,2,0}
+print(x==y)
+print(x)
+x.add(15)
+print(x)
+x.pop()
+print(x)
+x.pop()
+print(x)

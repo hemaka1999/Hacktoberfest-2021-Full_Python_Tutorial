@@ -1,0 +1,19 @@
+text='  HI eedfdfeg dafelkapegieg '
+def string(text1):
+    return text.__str__()
+x=list()
+
+print(text[2:5])
+print(text.__len__())
+print(f'{ord(text[0])+ord(text[1])}')
+print(text.index("a"))
+print(len(text))
+for i in range(1,len(text)):
+    if text.isupper()==True:
+        print(text[i])
+    else:
+        print(text[i])
+
+print(sorted(text.lower()))
+x=text.strip()
+print(x)

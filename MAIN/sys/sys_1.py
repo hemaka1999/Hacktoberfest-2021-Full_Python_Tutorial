@@ -1,0 +1,13 @@
+import sys
+print(sys.path)
+print(sys.base_exec_prefix)
+print(sys.copyright)
+print(sys.api_version)
+print(sys.argv)
+print(sys.builtin_module_names)
+print(sys.byteorder)
+print(sys.dllhandle)
+print(sys.flags)
+print(sys.hash_info)
+print(sys.platform)
+print(sys.path_importer_cache)
