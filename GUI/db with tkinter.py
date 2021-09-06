@@ -3,7 +3,7 @@ import sqlite3
 root=Tk()
 con=sqlite3.connect('pyexample.db')
 c=con.cursor()
-oid=1
+oid=0
 #Add the data
 def submit():
     c.execute(
@@ -32,13 +32,27 @@ def submit():
     )
     con.commit()
 
+def update():
+    c.execute(
+        f"""
+            UPDATE student_info SET     
+            'fname':f_name.get(),
+            'sname':s_name.get(),
+            'age':age.get(),
+            'email':email.get(),
+            'phone_no':phone_no.get() 
+             WHERE oid={id}
+         """
+    )
+    con.commit()
 
-    #clear text
-    f_name.delete(0,END)
-    s_name.delete(0,END)
-    age.delete(0,END)
-    email.delete(0,END)
-    phone_no.delete(0,END)
+    # clear text
+    f_name.delete(0, END)
+    s_name.delete(0, END)
+    age.delete(0, END)
+    email.delete(0, END)
+    phone_no.delete(0, END)
+
 
 #Display the data
 def show():
@@ -51,19 +65,40 @@ def show():
    def edit(oid):
        editor = Tk()
        print(oid)
-       mainloop()
-       c.execute(
-           """
+       f_name_label = Label(editor,text="First Name")
+       f_name_label.grid(row=0, column=0)
+       f_name = Entry(editor, width=30)
+       f_name.grid(row=0, column=1, padx=20, pady=10)
+       s_name_label = Label(editor,text="Second Name")
+       s_name_label.grid(row=1, column=0)
+       s_name = Entry(editor, width=30)
+       s_name.grid(row=1, column=1, padx=20, pady=10)
+       age_label = Label(editor,text="Age")
+       age_label.grid(row=2, column=0)
+       age = Entry(editor, width=30)
+       age.grid(row=2, column=1, padx=20, pady=10)
+       email_label = Label(editor,text="Email")
+       email_label.grid(row=3, column=0)
+       email = Entry(editor, width=30)
+       email.grid(row=3, column=1, padx=20, pady=10)
+       phone_label = Label(editor,text="Phone number")
+       phone_label.grid(row=4, column=0)
+       phone_no = Entry(editor, width=30)
+       phone_no.grid(row=4, column=1, padx=20, pady=10)
+       submit_btn = Button(editor, text="Update", command=update)
+       submit_btn.grid(row=5, column=1, columnspan=2, pady=10, padx=10, ipadx=100)
+       editor.mainloop()
 
+
+   # delete records
+   def delete(id):
+       print(id)
+       c.execute(
+           f"""
+           DELETE FROM student_info WHERE oid={id}
            """
        )
 
-   # delete records
-   def delete(oid):
-       print(oid)
-       c.execute("DELETE from student_info where ")
-
-       con.commit()
 
    fname = Label(text="First_name")
    sname = Label(text="Second name")
@@ -92,13 +127,14 @@ def show():
        email_l.grid(row=i, column=3)
        pn_l.grid(row=i, column=4)
 
-       edit_btn=Button(root,text="Edit",command=edit)
+       edit_btn=Button(root,text="Edit", command=lambda oid=i-8: edit(oid))
        edit_btn.grid(row=i, column=5, pady=10, padx=10)
 
-       delete_btn = Button(root, text="Delete", command=delete)
+       delete_btn = Button(root, text="Delete", command=lambda oid=i-8: delete(oid))
        delete_btn.grid(row=i, column=6, pady=10, padx=10)
+
        i = i + 1
-       oid=oid+i
+
    con.commit()
 
 #edit records

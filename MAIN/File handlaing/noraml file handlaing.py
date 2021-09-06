@@ -24,6 +24,11 @@ with open('text2.txt','w+') as file:
     file.seek(3)
     print(file.read())
 
+with open('text2.txt','rb') as file:
+    file.write("jdafjafoomo\ndafdgf\ndgdg\ntee")
+    # file.write("\nI'm at the end\n")
+    file.seek(3)
+    print(file.read())
 # with open('first.txt', 'w+') as file:
 #     file.write("Now everything is overwritten :(")
 #     file.seek(0)
