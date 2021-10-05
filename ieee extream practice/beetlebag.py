@@ -1,60 +1,19 @@
-# a simple parser for python. use get_number() and get_word() to read
-def parser():
-    while 1:
-        data = list(input().split(' '))
-        for number in data:
-            if len(number) >=1:
-                yield(number)
-
-input_parser = parser()
-
-
-def get_word():
-    global input_parser
-    return next(input_parser)
-
-def get_number():
-    data = get_word()
-    try:
-        return int(data)
-    except ValueError:
-        return float(data)
-
-# numpy and scipy are available for use
-import numpy
-
-
-
-n=0
-test_cases  = get_number()
-
-for j in range(test_cases):
-    power = numpy.array([0])
-    gadget_weight = 0
-    capacity = get_number()
-    n=get_number()
-    for i in range(n):
-        current_weight=get_number()
-        current_power=get_number()
-        if current_weight<=capacity:
-            for j in range(power.size):
-                if current_power>power[j]:
-                    power=numpy.append(power,current_power)
-    print(max(power))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+t = int(input())
+while t:
+    C, N = map(int, input().split())
+    g = [list(map(int, input().split())) for _ in range(N)]
+    f = [[0] * (C + 1) for _ in range(N + 1)]
+    i = 1
+    while i < N + 1:
+        j = 1
+        while j < C + 1:
+            new_j = j - g[i - 1][0]
+            if new_j < 0:
+                f[i][j] = f[i - 1][j]
+                j += 1
+                continue
+            f[i][j] = max(f[i - 1][j], g[i - 1][1] + f[i - 1][new_j])
+            j += 1
+        i += 1
+    print(f[-1][-1])
+    t -= 1
